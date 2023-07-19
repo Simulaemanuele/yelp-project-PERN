@@ -19,7 +19,7 @@ app.get("/api/v1/restaurants", async (req, res) => {
       status: "success",
       results: results.rows.length,
       data: {
-        restaurants: results.rows,
+        restaurants: results.rows[0],
       },
     });
   } catch (err) {
@@ -28,14 +28,29 @@ app.get("/api/v1/restaurants", async (req, res) => {
 });
 
 // get a restaurant
-app.get("/api/v1/restaurants/:id", (req, res) => {
+app.get("/api/v1/restaurants/:id", async (req, res) => {
   console.log(req.params);
-  res.status(200).json({
-    status: "success",
-    data: {
-      restaurant: "mcdonalds", // mocked data
-    },
-  });
+
+  try {
+    // this query is vulnerable to sql injection attacks
+    // const results = await db.query(
+    //   `SELECT * FROM restaurants WHERE id = ${req.params.id}`
+    // );
+
+    //this is correct
+    const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [
+      req.params.id,
+    ]); // ' $ ' is a pg notation that works like a placeholder and the 2nd argument as an array is the parameter which will be replaced
+    console.log(results);
+    res.status(200).json({
+      status: "success",
+      data: {
+        restaurant: results.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // create a restaurant
