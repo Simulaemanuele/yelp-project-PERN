@@ -19,7 +19,7 @@ app.get("/api/v1/restaurants", async (req, res) => {
       status: "success",
       results: results.rows.length,
       data: {
-        restaurants: results.rows[0],
+        restaurants: results.rows,
       },
     });
   } catch (err) {
@@ -45,7 +45,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: results.rows,
+        restaurant: results.rows[0],
       },
     });
   } catch (err) {
@@ -98,9 +98,16 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
 
 // delete a restaurant
 app.delete("/api/v1/restaurants/:id", (req, res) => {
-  res.status(204).json({
-    status: "success",
-  });
+  try {
+    const results = db.query("DELETE FROM restaurants WHERE id = $1", [
+      req.params.id,
+    ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 const port = process.env.PORT || 3001;
