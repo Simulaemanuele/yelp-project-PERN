@@ -15,7 +15,7 @@ const RestaurantList = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [setRestaurants]);
 
   return (
     <div className="list-group">
@@ -31,7 +31,24 @@ const RestaurantList = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {restaurants &&
+            restaurants.map((restaurant) => {
+              return (
+                <tr>
+                  <td>{restaurant.name}</td>
+                  <td>{restaurant.location}</td>
+                  <td>{"$".repeat(restaurant.price_range)}</td>
+                  <td>Reviews</td>
+                  <td>
+                    <button className="btn btn-warning">Update</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
+          {/* <tr>
             <td>mcdonalds</td>
             <td>New York</td>
             <td>$$</td>
@@ -68,7 +85,7 @@ const RestaurantList = (props) => {
             <td>
               <button className="btn btn-danger">Delete</button>
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
     </div>
