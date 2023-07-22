@@ -1,9 +1,33 @@
 import React, { useState } from "react";
+import RestaurantFinder from "../apis/RestaurantFinder";
+import { useParams } from "react-router-dom";
 
 const AddReview = () => {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
+  const [errorSubmit, setErrorSubmit] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (name !== "" && rating !== "Rating" && reviewText !== "") {
+      try {
+        const response = await RestaurantFinder.post(`/${id}/addReview`, {
+          name,
+          review: reviewText,
+          rating,
+        });
+        console.log(response);
+        //refresh the page
+        window.location.reload(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setErrorSubmit(true);
+    }
+  };
 
   return (
     <div className="mb-2">
@@ -46,8 +70,24 @@ const AddReview = () => {
             className="form-control"
           ></textarea>
         </div>
-        <button className="btn btn-primary">Submit</button>
+        <button
+          disabled={
+            errorSubmit === true && name === "" && reviewText === ""
+              ? true
+              : false
+          }
+          onClick={(e) => handleSubmit(e)}
+          type="submit"
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
       </form>
+      {errorSubmit === true && (
+        <div className="text-danger">
+          Error: please enter a review to submit!
+        </div>
+      )}
     </div>
   );
 };
