@@ -38,14 +38,22 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
     // );
 
     //this is correct
-    const results = await db.query("SELECT * FROM restaurants WHERE id = $1", [
-      req.params.id,
-    ]); // ' $ ' is a pg notation that works like a placeholder and the 2nd argument as an array is the parameter which will be replaced
-    console.log(results);
+    const restaurant = await db.query(
+      "SELECT * FROM restaurants WHERE id = $1",
+      [req.params.id]
+    ); // ' $ ' is a pg notation that works like a placeholder and the 2nd argument as an array is the parameter which will be replaced
+
+    const reviews = await db.query(
+      "SELECT * FROM reviews WHERE restaurant_id = $1",
+      [req.params.id]
+    );
+    console.log(restaurant);
+    console.log(reviews);
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: results.rows[0],
+        restaurant: restaurant.rows[0],
+        reviews: reviews.rows,
       },
     });
   } catch (err) {
