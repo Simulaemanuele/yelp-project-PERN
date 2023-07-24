@@ -4,6 +4,7 @@ import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import Reviews from "../components/Reviews";
 import AddReview from "../components/AddReview";
+import StarRating from "../components/StarRating";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
@@ -24,6 +25,15 @@ const RestaurantDetailPage = () => {
     fetchData();
   }, [id, setSelectedRestaurant]);
 
+  const renderRating = () => {
+    return (
+      <>
+        <StarRating rating={selectedRestaurant.id} />
+        <span className="test-warning ml-1">{selectedRestaurant.count}</span>
+      </>
+    );
+  };
+
   return (
     <div>
       {selectedRestaurant && (
@@ -32,6 +42,7 @@ const RestaurantDetailPage = () => {
             {selectedRestaurant.restaurant.name}
           </h1>
           <div className="mt-3">
+            {renderRating(selectedRestaurant)}
             <Reviews reviews={selectedRestaurant.reviews} />
           </div>
           <AddReview />
