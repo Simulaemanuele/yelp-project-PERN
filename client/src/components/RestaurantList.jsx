@@ -14,6 +14,7 @@ const RestaurantList = (props) => {
       try {
         const response = await RestaurantFinder.get("/");
         setRestaurants(response.data.data.restaurants);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -41,11 +42,14 @@ const RestaurantList = (props) => {
     navigate(`restaurants/${id}`);
   };
 
-  const renderRating = () => {
+  const renderRating = (restaurant) => {
+    if (!restaurant.count) {
+      return <span className="text-warning">0 reviews</span>;
+    }
     return (
       <>
-        <StarRating rating={restaurants.id} />
-        <span className="test-warning ml-1">{restaurants.count}</span>
+        <StarRating rating={restaurant.avarage_rating} />
+        <span className="text-warning ml-1">({restaurant.count})</span>
       </>
     );
   };

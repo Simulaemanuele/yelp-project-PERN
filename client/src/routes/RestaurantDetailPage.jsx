@@ -25,11 +25,13 @@ const RestaurantDetailPage = () => {
     fetchData();
   }, [id, setSelectedRestaurant]);
 
-  const renderRating = () => {
+  const renderRating = (restaurant) => {
     return (
       <>
-        <StarRating rating={selectedRestaurant.id} />
-        <span className="test-warning ml-1">{selectedRestaurant.count}</span>
+        <StarRating rating={restaurant.avarage_rating} />
+        <span className="text-warning ml-1">
+          {restaurant.count ? `(${restaurant.count})` : "(0)"}
+        </span>
       </>
     );
   };
@@ -41,8 +43,10 @@ const RestaurantDetailPage = () => {
           <h1 className="text-center display-1">
             {selectedRestaurant.restaurant.name}
           </h1>
+          <div className="text-center">
+            {renderRating(selectedRestaurant.restaurant)}
+          </div>
           <div className="mt-3">
-            {renderRating(selectedRestaurant)}
             <Reviews reviews={selectedRestaurant.reviews} />
           </div>
           <AddReview />
