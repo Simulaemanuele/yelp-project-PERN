@@ -1,28 +1,15 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import restaurantBackground from "../img/restaurant-background.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .post("http://localhost:4000/login", { email, password })
-      .then((res) => {
-        console.log("HERE IS THE RESPONSE: ", res);
-        if (res.data.status === "failed") {
-          alert("Email and/or password uncorrect!");
-        } else {
-          navigate("home");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
+const Login = ({
+  email,
+  password,
+  setEmail,
+  setPassword,
+  isWarned,
+  handleSubmit,
+}) => {
   return (
     <div
       style={{
@@ -55,7 +42,11 @@ const Login = () => {
             />
           </div>
           <button className="btn btn-success">Login</button>
+          {isWarned && (
+            <Link to={"/signin"}>If you don't have an account click here</Link>
+          )}
         </form>
+        {isWarned && <p>Email and / or password uncorrect!</p>}
       </div>
     </div>
   );
