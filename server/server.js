@@ -139,6 +139,24 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
   }
 });
 
+//login route
+app.post("/login", async (req, res) => {
+  try {
+    const loginQuery = await db.query(
+      "SELECT * FROM login WHERE username = $1 AND password = $2;",
+      [req.body.email, req.body.password]
+    );
+
+    console.log("loginQuery ===> ", loginQuery);
+    res.status(200).json({
+      status: loginQuery.rows[0] ? "success" : "failed",
+      data: loginQuery.rows[0],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);
