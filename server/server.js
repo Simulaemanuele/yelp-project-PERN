@@ -157,6 +157,24 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//create user route
+app.post("/signin", async (req, res) => {
+  try {
+    const loginQuery = await db.query(
+      "INSERT INTO login (username, password) values ($1, $2) returning *",
+      [req.body.email, req.body.password]
+    );
+
+    console.log("loginQuery create new ===> ", loginQuery);
+    res.status(201).json({
+      status: loginQuery.rows[0] ? "success" : "failed",
+      data: loginQuery.rows[0],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);

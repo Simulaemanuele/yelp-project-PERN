@@ -41,12 +41,21 @@ const Login = ({
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className="btn btn-success">Login</button>
-          {isWarned && (
-            <Link to={"/signin"}>If you don't have an account click here</Link>
-          )}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <button className="btn btn-success">Login</button>
+            {isWarned && <Link to={"/signin"}>Register</Link>}
+          </div>
         </form>
-        {isWarned && <p>Email and / or password uncorrect!</p>}
+        {isWarned && (
+          <p className="text-danger m-3">Email or password are not correct!</p>
+        )}
       </div>
     </div>
   );
