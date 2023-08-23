@@ -1,20 +1,39 @@
 import axios from "axios";
 import React, { useState } from "react";
+import restaurantBackground from "../img/restaurant-background.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post("http://localhost:4000/login", { email, password })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log("HERE IS THE RESPONSE: ", res);
+        if (res.data.status === "failed") {
+          alert("Email and/or password uncorrect!");
+        } else {
+          navigate("home");
+        }
+      })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="d-flex vh-100 justify-content-center align-items-center bg-primary">
+    <div
+      style={{
+        backgroundImage: `url(${restaurantBackground})`,
+        backgroundSize: "cover",
+        opacity: 0.9,
+      }}
+      className="d-flex flex-column vh-100 justify-content-center align-items-center bg-primary"
+    >
+      <h1 className="display-1 text-light">Welcome</h1>
+      <h2 className="text-light mb-3">Please login</h2>
       <div className="p-3 bg-white w-25">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

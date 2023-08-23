@@ -10,7 +10,7 @@ import Login from "./components/Login";
 function App() {
   return (
     <RestaurantContextProvider>
-      <div className="container-fluid">
+      <div className="container-fluid p-0">
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
