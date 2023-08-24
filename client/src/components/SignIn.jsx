@@ -7,7 +7,49 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [userCreated, setUserCreated] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const renderMessage = () => {
+    const { validatedEmail, validatedPassword } = validation(email, password);
+
+    if (!validatedEmail && !validatedPassword) {
+      return (
+        <div>
+          <span>Please enter a valid email address.</span>
+          <span>
+            Password must be at least 8 characters long and contain at least one
+            letter and one digit.
+          </span>
+        </div>
+      );
+    } else if (validatedEmail && !validatedPassword) {
+      return (
+        <div>
+          <span>
+            Password must be at least 8 characters long and contain at least one
+            letter and one digit.
+          </span>
+        </div>
+      );
+    } else if (!validatedEmail && validatedPassword) {
+      return (
+        <div>
+          <span>Please enter a valid email address.</span>
+        </div>
+      );
+    } else {
+      return <div>👌</div>;
+    }
+  };
+
+  const validation = (email, password) => {
+    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    let regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    let validatedEmail = regexEmail.test(email);
+    let validatedPassword = regexPassword.test(password);
+    return { validatedEmail, validatedPassword };
+  };
 
   const handleRegister = (event) => {
     /*CREATE A NEW USER*/
@@ -35,7 +77,14 @@ const SignIn = () => {
                 type="email"
                 placeholder="Enter Email"
                 className="form-control"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (email !== "") {
+                    setLoading(true);
+                  } else if (email === "") {
+                    setLoading(false);
+                  }
+                }}
               />
             </div>
             <div className="mb-3">
@@ -44,8 +93,16 @@ const SignIn = () => {
                 type="password"
                 placeholder="Enter Password"
                 className="form-control"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (password !== "") {
+                    setLoading(true);
+                  } else if (password === "") {
+                    setLoading(false);
+                  }
+                }}
               />
+              {loading === true && renderMessage()}
             </div>
             <div
               style={{
