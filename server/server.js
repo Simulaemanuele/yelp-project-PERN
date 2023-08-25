@@ -143,7 +143,7 @@ app.post("/api/v1/restaurants/:id/addReview", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const loginQuery = await db.query(
-      "SELECT * FROM login WHERE username = $1 AND password = $2;",
+      "SELECT * FROM login WHERE email = $1 AND password = $2;",
       [req.body.email, req.body.password]
     );
 
@@ -161,8 +161,8 @@ app.post("/login", async (req, res) => {
 app.post("/signin", async (req, res) => {
   try {
     const loginQuery = await db.query(
-      "INSERT INTO login (username, password) values ($1, $2) returning *",
-      [req.body.email, req.body.password]
+      "INSERT INTO login (email, password, username) values ($1, $2, $3) returning *",
+      [req.body.email, req.body.password, req.body.username]
     );
 
     console.log("loginQuery create new ===> ", loginQuery);

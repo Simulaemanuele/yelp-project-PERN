@@ -9,6 +9,7 @@ const SignIn = () => {
   const [userCreated, setUserCreated] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const renderMessage = () => {
@@ -64,7 +65,7 @@ const SignIn = () => {
     /*CREATE A NEW USER*/
     event.preventDefault();
     axios
-      .post("http://localhost:4000/signin", { email, password })
+      .post("http://localhost:4000/signin", { email, password, username })
       .then((res) => {
         console.log("HERE IS THE RESPONSE: ", res);
         if (res.data.status === "failed") {
@@ -93,6 +94,22 @@ const SignIn = () => {
         {userCreated === false ? (
           <div style={{ zIndex: 1 }} className="p-3 bg-white w-25">
             <form onSubmit={handleRegister}>
+              <div className="mb-3">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="username"
+                  placeholder="Select Username"
+                  className="form-control"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    if (username !== "") {
+                      setLoading(true);
+                    } else if (email === "") {
+                      setLoading(false);
+                    }
+                  }}
+                />
+              </div>
               <div className="mb-3">
                 <label htmlFor="email">Email</label>
                 <input
