@@ -32,11 +32,6 @@ const NavbarComponent = ({ data }) => {
       >
         {username !== "" ? renderUserInitial(username) : "RF"}
       </div>
-      {/* <div className="mr-4 my-auto">
-        <button className="btn text-white" onClick={(e) => handleLogout(e)}>
-          Logout
-        </button>
-      </div> */}
     </div>
   );
 };
