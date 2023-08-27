@@ -1,6 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ data }) => {
+  const navigate = useNavigate();
+
+  console.log("Data in NAVBAR component ===> ", data.data);
+
+  const username = data.data.username;
+  const renderUserInitial = (username) => username.split("")[0].toUpperCase();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    let answer = window.confirm("Logout and return to Login page? ");
+    if (answer) {
+      navigate("/");
+    } else {
+      window.location.reload(true);
+    }
+  };
+
   return (
     <div
       style={{ backgroundColor: "rgba(52, 58, 64, 0.9)" }}
@@ -10,9 +28,13 @@ const NavbarComponent = () => {
         style={{ width: 50, height: 50 }}
         className="d-flex justify-content-center align-items-center rounded-circle bg-primary text-white ml-4 h3"
       >
-        TS
+        {username !== "" ? renderUserInitial(username) : "RF"}
       </div>
-      <div className="text-white mr-4">Temp Menu</div>
+      <div className="mr-4">
+        <button className="btn text-white" onClick={(e) => handleLogout(e)}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

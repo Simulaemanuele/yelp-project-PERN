@@ -17,19 +17,20 @@ const WelcomePage = () => {
       .post("http://localhost:4000/login", { email, password })
       .then((res) => {
         console.log("HERE IS THE RESPONSE: ", res);
+        console.log("Data inside res ===> ", res.data.data);
         if (res.data.status === "failed") {
           setIsWarned(true);
         } else {
           setIsLogged("logged");
-          handleNavigation(isLogged);
+          handleNavigation(isLogged, res.data.data);
         }
       })
       .catch((err) => console.log(err));
   };
 
-  const handleNavigation = (isLogged) => {
+  const handleNavigation = (isLogged, data) => {
     if (isLogged === "logged") {
-      navigate("/home");
+      navigate("/home", { state: { data: data } });
     }
   };
 
