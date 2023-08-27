@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavbarComponent = ({ data }) => {
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
-  console.log("Data in NAVBAR component ===> ", data.data);
+  console.log("Data in NAVBAR component ===> ", data);
 
-  const username = data.data.username;
+  useEffect(() => {
+    setUsername(data.username);
+  }, [data.username]);
+
   const renderUserInitial = (username) => username.split("")[0].toUpperCase();
 
   const handleLogout = (event) => {

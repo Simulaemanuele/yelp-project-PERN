@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Login from "../components/Login";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const WelcomePage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogged, setIsLogged] = useState("");
   const [isWarned, setIsWarned] = useState(false);
+
+  const { accountData, setAccountData } = useContext(RestaurantsContext);
 
   const navigate = useNavigate();
 
@@ -22,6 +25,8 @@ const WelcomePage = () => {
           setIsWarned(true);
         } else {
           setIsLogged("logged");
+          setAccountData(res.data.data);
+          console.log("accountData ===> ", accountData);
           handleNavigation(isLogged, res.data.data);
         }
       })

@@ -5,10 +5,11 @@ import RestaurantFinder from "../apis/RestaurantFinder";
 import Reviews from "../components/Reviews";
 import AddReview from "../components/AddReview";
 import StarRating from "../components/StarRating";
+import NavbarComponent from "../components/NavbarComponent";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
-  const { selectedRestaurant, setSelectedRestaurant } =
+  const { selectedRestaurant, setSelectedRestaurant, accountData } =
     useContext(RestaurantsContext);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const RestaurantDetailPage = () => {
 
   return (
     <div>
+      <NavbarComponent data={accountData} />
       {selectedRestaurant && (
         <>
           <h1 className="text-center display-1">
