@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./routes/Home";
@@ -7,11 +7,38 @@ import UpdatePage from "./routes/UpdatePage";
 import { RestaurantContextProvider } from "./context/RestaurantsContext";
 import WelcomePage from "./routes/WelcomePage";
 import SignIn from "./components/SignIn";
+import "../src/styles/App2.css";
 
 function App() {
+  useEffect(() => {
+    const disableScroll = () => {
+      document.body.style.overflow = "hidden";
+    };
+
+    const enableScroll = () => {
+      document.body.style.overflow = "";
+    };
+
+    document
+      .querySelector(".scrollable-content")
+      .addEventListener("mouseenter", disableScroll);
+    document
+      .querySelector(".scrollable-content")
+      .addEventListener("mouseleave", enableScroll);
+
+    return () => {
+      document
+        .querySelector(".scrollable-content")
+        .removeEventListener("mouseenter", disableScroll);
+      document
+        .querySelector(".scrollable-content")
+        .removeEventListener("mouseleave", enableScroll);
+    };
+  }, []);
+
   return (
     <RestaurantContextProvider>
-      <div className="container-fluid p-0">
+      <div id="root" className="container-fluid p-0 scrollable-content">
         <Router>
           <Routes>
             <Route path="/" element={<WelcomePage />} />

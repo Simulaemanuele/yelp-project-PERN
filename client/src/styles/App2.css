@@ -1,0 +1,16 @@
+/* App.css */
+body {
+  margin: 0; /* Reset dei margini del body */
+}
+
+.scrollable-content {
+  max-height: 100vh; /* Set max heigth */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  scrollbar-width: none; /* Hide standard scrollbar (works in Firefox) */
+  -ms-overflow-style: none; /* Hide standard scrollbar (works in Internet Explorer and Edge) */
+}
+
+/* Custom scrollbar style (works in Chrome) */
+.scrollable-content::-webkit-scrollbar {
+  width: 0; /* Hide scrollbar in Chrome */
+}
