@@ -57,6 +57,10 @@ const NavbarComponent = ({ data }) => {
     return filteredList;
   };
 
+  const goToSelection = (id) => {
+    navigate(`restaurants/${id}`);
+  };
+
   return (
     <div style={{ position: "fixed", width: "100%" }}>
       <div
@@ -115,7 +119,7 @@ const NavbarComponent = ({ data }) => {
               <div
                 className="dropdown_item"
                 key={x.id}
-                onClick={selectedRestaurant}
+                onClick={() => goToSelection(x.id)}
               >
                 Name: {x.name}
                 <div
