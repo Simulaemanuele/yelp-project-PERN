@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "../img/icons/svg/search.svg";
 import { RestaurantsContext } from "../context/RestaurantsContext";
+import "../styles/common.css";
+import StarRating from "./StarRating";
 
 const NavbarComponent = ({ data }) => {
   const [username, setUsername] = useState("");
@@ -56,38 +58,82 @@ const NavbarComponent = ({ data }) => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "rgba(52, 58, 64, 0.9)" }}
-      className="d-flex flex-row justify-content-between align-items-center border-top border-bottom border-primary py-1"
-    >
-      <div className="h4 ml-4 text-white">Restaurants Finder</div>
-      <div className="d-flex flex-row justify-content-between align-items-center">
+    <div style={{ position: "fixed", width: "100%" }}>
+      <div
+        style={{ backgroundColor: "rgba(52, 58, 64, 0.9)" }}
+        className="d-flex flex-row justify-content-between align-items-center border-top border-bottom border-primary py-1"
+      >
+        <div className="h4 ml-4 text-white">Restaurants Finder</div>
         <div className="d-flex flex-row justify-content-between align-items-center">
-          <form className="form-inline" name="search" onSubmit={handleSearch}>
-            <input
-              type="search"
-              placeholder="Search..."
-              value={searchedRestaurants}
-              form="search"
-              name="search"
-              className="form-control my-sm-1"
-              onChange={handleChange}
-              onFocus={() => {
-                setVisible(true);
-              }}
-            />
-            <button className="btn d-flex flex-row justify-content-center align-items-center">
-              <img src={SearchIcon} alt="Search Icon" />
-            </button>
-          </form>
-          <div ref={dropdownRef} className={`dropdown`}></div>
+          <div className="d-flex flex-row justify-content-between align-items-center">
+            <form className="form-inline mr-3" name="search">
+              <input
+                id="search"
+                type="search"
+                placeholder="Search..."
+                value={searchedRestaurants}
+                form="search"
+                name="search"
+                className="form-control my-sm-1"
+                onChange={handleChange}
+                onFocus={() => {
+                  setVisible(true);
+                }}
+              />
+              <button className="btn d-flex flex-row justify-content-center align-items-center">
+                <img src={SearchIcon} alt="Search Icon" />
+              </button>
+            </form>
+          </div>
+          <div
+            style={{ width: 32, height: 32 }}
+            onClick={(e) => handleLogout(e)}
+            className="d-flex justify-content-center align-items-center rounded-circle bg-primary text-white my-auto h4 mr-4"
+          >
+            {username !== "" ? renderUserInitial(username) : "RF"}
+          </div>
         </div>
+      </div>
+      <div style={{ position: "relative", height: 250 }}>
         <div
-          style={{ width: 32, height: 32 }}
-          onClick={(e) => handleLogout(e)}
-          className="d-flex justify-content-center align-items-center rounded-circle bg-primary text-white my-auto h4 mr-4"
+          ref={dropdownRef}
+          style={{
+            borderLeft: searchedRestaurants !== "" ? "3px solid #000" : "",
+            borderRight: searchedRestaurants !== "" ? "3px solid #000" : "",
+            borderBottom: searchedRestaurants !== "" ? "3px solid #000" : "",
+          }}
+          className={`dropdown ${visible ? "v" : ""}`}
+          aria-labelledby="search"
         >
-          {username !== "" ? renderUserInitial(username) : "RF"}
+          {!restaurants && visible && (
+            <div className="dropdown_item">No results</div>
+          )}
+          {restaurants &&
+            visible &&
+            searchedRestaurants !== "" &&
+            searchFilter(searchedRestaurants, restaurants, "name").map((x) => (
+              <div
+                className="dropdown_item"
+                key={x.id}
+                onClick={selectedRestaurant}
+              >
+                Name: {x.name}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: "5px",
+                  }}
+                >
+                  {"Rate: "}{" "}
+                  <div style={{ paddingRight: 50 }}>
+                    {<StarRating rating={x.avarage_rating} />}
+                  </div>
+                </div>
+                Location: {x.location}
+              </div>
+            ))}
         </div>
       </div>
     </div>

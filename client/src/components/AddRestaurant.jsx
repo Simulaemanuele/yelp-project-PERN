@@ -25,7 +25,10 @@ const AddRestaurant = () => {
   };
 
   return (
-    <div className="mb-4">
+    <div
+      className="mb-4"
+      style={{ display: "block", position: "relative", zIndex: -1 }}
+    >
       <form action="">
         <div className="form-row">
           <div className="col">

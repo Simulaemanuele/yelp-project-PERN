@@ -19,12 +19,14 @@ const Home = () => {
   // }, [location.state]);
 
   return (
-    <div>
+    <div className="d-flex flex-column justify-content-between">
       <NavbarComponent data={accountData} />
       <Header />
       <div className="m-3">
-        <AddRestaurant />
-        <RestaurantList />
+        <>
+          <AddRestaurant />
+          <RestaurantList />
+        </>
       </div>
     </div>
   );
