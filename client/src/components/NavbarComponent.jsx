@@ -22,7 +22,13 @@ const NavbarComponent = ({ data }) => {
     return () => document.removeEventListener("mousedown", handleClick, false);
   }, [data.username]);
 
-  const renderUserInitial = (username) => username.split("")[0].toUpperCase();
+  const renderUserInitial = (username) => {
+    const result =
+      username !== "" || username !== undefined
+        ? username.split("")[0].toUpperCase()
+        : "";
+    return result;
+  };
 
   const handleClick = (e) => {
     if (dropdownRef.current.contains(e.target)) {

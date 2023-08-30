@@ -6,6 +6,7 @@ import Reviews from "../components/Reviews";
 import AddReview from "../components/AddReview";
 import StarRating from "../components/StarRating";
 import NavbarComponent from "../components/NavbarComponent";
+import restaurantBackground from "../img/restaurant-background-4.jpg";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
@@ -38,21 +39,31 @@ const RestaurantDetailPage = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${restaurantBackground})`,
+        backgroundSize: "cover",
+        opacity: 0.9,
+        height: "100vh",
+      }}
+      className="d-flex flex-column justify-content-evenly"
+    >
       <NavbarComponent data={accountData} />
       {selectedRestaurant && (
-        <>
-          <h1 className="text-center display-1">
-            {selectedRestaurant.restaurant.name}
-          </h1>
-          <div className="text-center">
-            {renderRating(selectedRestaurant.restaurant)}
+        <div className="pt-xl-5 px-5">
+          <div className="d-flex flex-column justify-content-evenly">
+            <h1 className="text-center display-1 text-white">
+              {selectedRestaurant.restaurant.name}
+            </h1>
+            <div className="text-center">
+              {renderRating(selectedRestaurant.restaurant)}
+            </div>
+            <div className="mt-3">
+              <Reviews reviews={selectedRestaurant.reviews} />
+            </div>
+            <AddReview accountData={accountData} />
           </div>
-          <div className="mt-3">
-            <Reviews reviews={selectedRestaurant.reviews} />
-          </div>
-          <AddReview />
-        </>
+        </div>
       )}
     </div>
   );
