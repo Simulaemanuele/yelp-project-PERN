@@ -5,28 +5,58 @@ import { RestaurantsContext } from "../context/RestaurantsContext";
 import "../styles/common.css";
 import StarRating from "./StarRating";
 
-const NavbarComponent = ({ data }) => {
-  const [username, setUsername] = useState("");
+const NavbarComponent = () => {
+  const [username, setUsername] = useState();
   const [visible, setVisible] = useState(false);
   const [searchedRestaurants, setSearchedRestaurant] = useState("");
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const { restaurants, selectedRestaurant } = useContext(RestaurantsContext);
-
+  const {
+    restaurants,
+    setRestaurants,
+    accountData: data,
+    setAccountData,
+  } = useContext(RestaurantsContext);
   console.log("Data in NAVBAR component ===> ", data);
 
+  // useEffect(() => {
+  //   setUsername(data.username);
+  //   document.addEventListener("mousedown", handleClick, false);
+  //   return () => document.removeEventListener("mousedown", handleClick, false);
+  // }, []);
+  // Aggiorna il valore di data.username e localStorage
+  // const updateUsername = (newUsername) => {
+  //   setAccountData((prevData) => ({ ...prevData, username: newUsername }));
+  //   localStorage.setItem("username", newUsername);
+  // };
+
   useEffect(() => {
-    setUsername(data.username);
+    const localData = localStorage.getItem("localData");
+    const localUsername = localStorage.getItem("username");
+    const localRestaurants = localStorage.getItem("restaurants");
+    if (localData || localRestaurants) {
+      setAccountData(localData);
+      setUsername(localUsername);
+      // setRestaurants(localRestaurants);
+    } else if (data || restaurants) {
+      setAccountData(data);
+      setUsername(data.username);
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("localData", data);
+      // localStorage.setItem("restaurants", restaurants);
+    }
+
     document.addEventListener("mousedown", handleClick, false);
     return () => document.removeEventListener("mousedown", handleClick, false);
-  }, [data.username]);
+  }, [data, restaurants, setAccountData, setRestaurants]);
 
   const renderUserInitial = (username) => {
     const result =
       username !== "" || username !== undefined
         ? username.split("")[0].toUpperCase()
         : "";
+
     return result;
   };
 
@@ -68,12 +98,18 @@ const NavbarComponent = ({ data }) => {
   };
 
   return (
-    <div style={{ position: "fixed", width: "100%" }}>
+    <div style={{ position: "fixed", width: "100%", zIndex: 1 }}>
       <div
         style={{ backgroundColor: "rgba(52, 58, 64, 0.9)" }}
         className="d-flex flex-row justify-content-between align-items-center border-top border-bottom border-primary py-1"
       >
-        <div className="h4 ml-4 text-white">Restaurants Finder</div>
+        <div
+          className="h4 ml-4 text-white"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/home")}
+        >
+          Restaurants Finder
+        </div>
         <div className="d-flex flex-row justify-content-between align-items-center">
           <div className="d-flex flex-row justify-content-between align-items-center">
             <form className="form-inline mr-3" name="search">
@@ -100,7 +136,9 @@ const NavbarComponent = ({ data }) => {
             onClick={(e) => handleLogout(e)}
             className="d-flex justify-content-center align-items-center rounded-circle bg-primary text-white my-auto h4 mr-4"
           >
-            {username !== "" ? renderUserInitial(username) : "RF"}
+            {username !== "" && username !== undefined
+              ? renderUserInitial(username)
+              : "RF"}
           </div>
         </div>
       </div>

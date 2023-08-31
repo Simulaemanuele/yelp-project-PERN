@@ -10,6 +10,22 @@ export const RestaurantContextProvider = (props) => {
   const addRestaurants = (restaurant) => {
     setRestaurants([...restaurants, restaurant]);
   };
+
+  const localStorageSave = (data) => {
+    localStorage.setItem("data", data);
+  };
+  const localStorageGet = () => {
+    localStorage.getItem("data");
+  };
+
+  // RESTART FROM HERE
+
+  const handleSetRestaurants = (restaurants) => {
+    if (restaurants !== undefined) {
+      setRestaurants();
+    } else {
+    }
+  };
   return (
     <RestaurantsContext.Provider
       value={{
@@ -20,6 +36,8 @@ export const RestaurantContextProvider = (props) => {
         setSelectedRestaurant,
         accountData,
         setAccountData,
+        localStorageSave,
+        localStorageGet,
       }}
     >
       {props.children}

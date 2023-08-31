@@ -1,8 +1,13 @@
 import React, { useContext, useState } from "react";
 import Login from "../components/Login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import { RestaurantsContext } from "../context/RestaurantsContext";
+import NavbarComponent from "../components/NavbarComponent";
+import Home from "./Home";
+import SignIn from "../components/SignIn";
+import UpdatePage from "./UpdatePage";
+import RestaurantDetailPage from "./RestaurantDetailPage";
 
 const WelcomePage = () => {
   const [email, setEmail] = useState("");

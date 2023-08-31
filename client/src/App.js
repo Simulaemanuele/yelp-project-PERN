@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./routes/Home";
 import RestaurantDetailPage from "./routes/RestaurantDetailPage";
 import UpdatePage from "./routes/UpdatePage";
-import { RestaurantContextProvider } from "./context/RestaurantsContext";
+import {
+  RestaurantContextProvider,
+  RestaurantsContext,
+} from "./context/RestaurantsContext";
 import WelcomePage from "./routes/WelcomePage";
 import SignIn from "./components/SignIn";
 import "../src/styles/App2.css";
+import NavbarComponent from "./components/NavbarComponent";
 
 function App() {
   useEffect(() => {
@@ -42,12 +46,41 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<WelcomePage />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/restaurants/:id/update" element={<UpdatePage />} />
+            <Route
+              path="/home"
+              element={
+                <>
+                  <NavbarComponent />
+                  <Home />
+                </>
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <>
+                  <NavbarComponent />
+                  <SignIn />
+                </>
+              }
+            />
+            <Route
+              path="/restaurants/:id/update"
+              element={
+                <>
+                  <NavbarComponent />
+                  <UpdatePage />
+                </>
+              }
+            />
             <Route
               path="/home/restaurants/:id"
-              element={<RestaurantDetailPage />}
+              element={
+                <>
+                  <NavbarComponent />
+                  <RestaurantDetailPage />
+                </>
+              }
             />
           </Routes>
         </Router>

@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const AddReview = ({ accountData }) => {
+const AddReview = ({ accountData, setAccountData }) => {
   const { id } = useParams();
-  const [name, setName] = useState(accountData.username);
+  const [name, setName] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
   const [errorSubmit, setErrorSubmit] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    setName(accountData.username);
+  }, [accountData.username]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (name !== "" && rating !== "Rating" && reviewText !== "") {
       try {
         const response = await RestaurantFinder.post(`/${id}/addReview`, {
@@ -21,10 +25,17 @@ const AddReview = ({ accountData }) => {
           rating,
         });
         console.log(response);
-        //refresh the page
-        if (response.data.status === "success") {
-          window.location.reload(false);
-          // navigate(`restaurants/${id}`);
+        if (response.accountData.status === "success") {
+          const updatedAccountData = {
+            ...accountData,
+            username: accountData.username,
+          };
+          setAccountData(updatedAccountData);
+
+          // Resetta i campi del form
+          setName("");
+          setRating("Rating");
+          setReviewText("");
         }
       } catch (error) {
         console.log(error);
@@ -90,7 +101,7 @@ const AddReview = ({ accountData }) => {
               ? true
               : false
           }
-          onClick={(e) => handleSubmit(e)}
+          onClick={handleSubmit}
           type="submit"
           className="btn btn-primary"
         >

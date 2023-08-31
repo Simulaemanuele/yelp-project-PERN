@@ -10,8 +10,12 @@ import restaurantBackground from "../img/restaurant-background-4.jpg";
 
 const RestaurantDetailPage = () => {
   const { id } = useParams();
-  const { selectedRestaurant, setSelectedRestaurant, accountData } =
-    useContext(RestaurantsContext);
+  const {
+    selectedRestaurant,
+    setSelectedRestaurant,
+    accountData,
+    setAccountData,
+  } = useContext(RestaurantsContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +52,7 @@ const RestaurantDetailPage = () => {
       }}
       className="d-flex flex-column justify-content-evenly"
     >
-      <NavbarComponent data={accountData} />
+      {/* <NavbarComponent data={accountData} /> */}
       {selectedRestaurant && (
         <div className="pt-xl-5 px-5">
           <div className="d-flex flex-column justify-content-evenly">
@@ -61,7 +65,10 @@ const RestaurantDetailPage = () => {
             <div className="mt-3">
               <Reviews reviews={selectedRestaurant.reviews} />
             </div>
-            <AddReview accountData={accountData} />
+            <AddReview
+              accountData={accountData}
+              setAccountData={setAccountData}
+            />
           </div>
         </div>
       )}

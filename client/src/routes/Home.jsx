@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <div className="d-flex flex-column justify-content-between">
-      <NavbarComponent data={accountData} />
+      {/* <NavbarComponent data={accountData} /> */}
       <Header />
       <div className="m-3">
         <>
