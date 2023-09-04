@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./routes/Home";
 import RestaurantDetailPage from "./routes/RestaurantDetailPage";
 import UpdatePage from "./routes/UpdatePage";
-import {
-  RestaurantContextProvider,
-  RestaurantsContext,
-} from "./context/RestaurantsContext";
+import { RestaurantContextProvider } from "./context/RestaurantsContext";
 import WelcomePage from "./routes/WelcomePage";
 import SignIn from "./components/SignIn";
 import "../src/styles/App2.css";
@@ -59,7 +56,6 @@ function App() {
               path="/signin"
               element={
                 <>
-                  <NavbarComponent />
                   <SignIn />
                 </>
               }
@@ -68,7 +64,7 @@ function App() {
               path="/restaurants/:id/update"
               element={
                 <>
-                  <NavbarComponent />
+                  <NavbarComponent noSearch={true} />
                   <UpdatePage />
                 </>
               }
@@ -77,7 +73,7 @@ function App() {
               path="/home/restaurants/:id"
               element={
                 <>
-                  <NavbarComponent />
+                  <NavbarComponent noSearch={true} />
                   <RestaurantDetailPage />
                 </>
               }

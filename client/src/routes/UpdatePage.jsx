@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import UpdateComponent from "../components/UpdateComponent";
-import NavbarComponent from "../components/NavbarComponent";
-import { RestaurantsContext } from "../context/RestaurantsContext";
+// import NavbarComponent from "../components/NavbarComponent";
+// import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const UpdatePage = () => {
-  const { accountData } = useContext(RestaurantsContext);
+  // const { accountData } = useContext(RestaurantsContext);
   return (
     <div>
-      <NavbarComponent data={accountData} />
+      {/* <NavbarComponent data={accountData} /> */}
       <h1 className="text-center">Update Restaurant</h1>
       <UpdateComponent />
     </div>

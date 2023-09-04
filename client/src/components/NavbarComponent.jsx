@@ -5,7 +5,7 @@ import { RestaurantsContext } from "../context/RestaurantsContext";
 import "../styles/common.css";
 import StarRating from "./StarRating";
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ noSearch }) => {
   const [username, setUsername] = useState();
   const [visible, setVisible] = useState(false);
   const [searchedRestaurants, setSearchedRestaurant] = useState("");
@@ -111,26 +111,28 @@ const NavbarComponent = () => {
           Restaurants Finder
         </div>
         <div className="d-flex flex-row justify-content-between align-items-center">
-          <div className="d-flex flex-row justify-content-between align-items-center">
-            <form className="form-inline mr-3" name="search">
-              <input
-                id="search"
-                type="search"
-                placeholder="Search..."
-                value={searchedRestaurants}
-                form="search"
-                name="search"
-                className="form-control my-sm-1"
-                onChange={handleChange}
-                onFocus={() => {
-                  setVisible(true);
-                }}
-              />
-              <button className="btn d-flex flex-row justify-content-center align-items-center">
-                <img src={SearchIcon} alt="Search Icon" />
-              </button>
-            </form>
-          </div>
+          {!!!noSearch && (
+            <div className="d-flex flex-row justify-content-between align-items-center">
+              <form className="form-inline mr-3" name="search">
+                <input
+                  id="search"
+                  type="search"
+                  placeholder="Search..."
+                  value={searchedRestaurants}
+                  form="search"
+                  name="search"
+                  className="form-control my-sm-1"
+                  onChange={handleChange}
+                  onFocus={() => {
+                    setVisible(true);
+                  }}
+                />
+                <button className="btn d-flex flex-row justify-content-center align-items-center">
+                  <img src={SearchIcon} alt="Search Icon" />
+                </button>
+              </form>
+            </div>
+          )}
           <div
             style={{ width: 32, height: 32 }}
             onClick={(e) => handleLogout(e)}

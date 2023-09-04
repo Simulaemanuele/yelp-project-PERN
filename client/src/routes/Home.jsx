@@ -1,14 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Header from "../components/Header";
-import AddRestaurant from "../components/AddRestaurant";
 import RestaurantList from "../components/RestaurantList";
-import NavbarComponent from "../components/NavbarComponent";
-// import { useLocation } from "react-router-dom";
-import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const Home = () => {
   // const location = useLocation();
-  const { accountData } = useContext(RestaurantsContext);
+  // const { accountData } = useContext(RestaurantsContext);
 
   // useEffect(() => {
   //   if (location.state) {
@@ -24,7 +20,7 @@ const Home = () => {
       <Header />
       <div className="m-3">
         <>
-          <AddRestaurant />
+          {/* <AddRestaurant /> */}
           <RestaurantList />
         </>
       </div>

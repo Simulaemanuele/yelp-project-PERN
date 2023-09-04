@@ -2,9 +2,9 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div>
+    <div className="my-xl-5 py-xl-5">
       <h1 className="font-weight-light display-1 text-center">
-        Restaurant Finder
+        Hey, track your favourities...
       </h1>
     </div>
   );
