@@ -5,7 +5,6 @@ import RestaurantFinder from "../apis/RestaurantFinder";
 import Reviews from "../components/Reviews";
 import AddReview from "../components/AddReview";
 import StarRating from "../components/StarRating";
-import NavbarComponent from "../components/NavbarComponent";
 import restaurantBackground from "../img/restaurant-background-4.jpg";
 
 const RestaurantDetailPage = () => {
@@ -48,7 +47,8 @@ const RestaurantDetailPage = () => {
         backgroundImage: `url(${restaurantBackground})`,
         backgroundSize: "cover",
         opacity: 0.9,
-        height: "100vh",
+        // height: "100vh",
+        backgroundRepeat: "repeat-y",
       }}
       className="d-flex flex-column justify-content-evenly"
     >
