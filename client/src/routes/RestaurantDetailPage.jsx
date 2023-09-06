@@ -62,13 +62,15 @@ const RestaurantDetailPage = () => {
             <div className="text-center">
               {renderRating(selectedRestaurant.restaurant)}
             </div>
-            <div className="mt-3">
+            <div className="mt-3 d-flex justify-content-center">
               <Reviews reviews={selectedRestaurant.reviews} />
             </div>
-            <AddReview
-              accountData={accountData}
-              setAccountData={setAccountData}
-            />
+            <div className="d-flex justify-content-center">
+              <AddReview
+                accountData={accountData}
+                setAccountData={setAccountData}
+              />
+            </div>
           </div>
         </div>
       )}

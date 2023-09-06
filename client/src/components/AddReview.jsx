@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { useParams } from "react-router-dom";
+import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const AddReview = ({ accountData, setAccountData }) => {
+  const { accountData: data, setAccountData: contextSettingData } =
+    useContext(RestaurantsContext);
+  const localUsername = localStorage.getItem("username");
   const { id } = useParams();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(localUsername);
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
   const [errorSubmit, setErrorSubmit] = useState(false);
@@ -12,8 +16,10 @@ const AddReview = ({ accountData, setAccountData }) => {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    setName(accountData.username);
-  }, [accountData.username]);
+    if (name !== localUsername) {
+      setName(localUsername);
+    }
+  }, [localUsername]);
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -48,7 +54,7 @@ const AddReview = ({ accountData, setAccountData }) => {
   return (
     <div
       className="mb-xl-5 d-flex flex-column justify-content-center"
-      style={{ height: "auto" }}
+      style={{ height: "auto", width: "50%" }}
     >
       <form action="">
         <div className="form-row mt-5">
@@ -62,7 +68,7 @@ const AddReview = ({ accountData, setAccountData }) => {
               onChange={(e) => setName(e.target.value)}
               placeholder="name"
               type="text"
-              className="form-control"
+              className="form-control py-2"
             />
           </div>
           <div className="form-group col-4">
@@ -73,7 +79,7 @@ const AddReview = ({ accountData, setAccountData }) => {
               id="rating"
               value={rating}
               onChange={(e) => setRating(e.target.value)}
-              className="custom-select"
+              className="custom-select "
             >
               <option disabled>Rating</option>
               <option value="1">1</option>
@@ -90,9 +96,10 @@ const AddReview = ({ accountData, setAccountData }) => {
           </label>
           <textarea
             id="Review"
+            placeholder="Write here your review..."
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
-            className="form-control"
+            className="form-control py-2"
           ></textarea>
         </div>
         <button
@@ -103,7 +110,8 @@ const AddReview = ({ accountData, setAccountData }) => {
           }
           onClick={handleSubmit}
           type="submit"
-          className="btn btn-primary"
+          style={{ width: "100%", borderRadius: 15 }}
+          className="btn btn-primary py-3"
         >
           Submit
         </button>
