@@ -42,11 +42,16 @@ const UpdateComponent = (props) => {
   };
 
   return (
-    <div>
-      <h1>{restaurants[0].name}</h1>
-      <form action="">
+    <div
+      style={{ width: "100%" }}
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <h1 className="text-white display-3">{restaurants[0].name}</h1>
+      <form style={{ width: "50%" }} action="">
         <div className="form-group">
-          <label htmlFor="name">Name</label>
+          <label className="text-white" htmlFor="name">
+            Name
+          </label>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -57,7 +62,9 @@ const UpdateComponent = (props) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="location">Location</label>
+          <label className="text-white" htmlFor="location">
+            Location
+          </label>
           <input
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -68,7 +75,9 @@ const UpdateComponent = (props) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="price_range">Price Range</label>
+          <label className="text-white" htmlFor="price_range">
+            Price Range
+          </label>
           <input
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
@@ -78,7 +87,11 @@ const UpdateComponent = (props) => {
           />
         </div>
 
-        <button onClick={(e) => handleSubmit(e)} className="btn btn-primary">
+        <button
+          style={{ width: "100%", borderRadius: 15 }}
+          onClick={(e) => handleSubmit(e)}
+          className="btn btn-primary py-2"
+        >
           Submit
         </button>
       </form>
