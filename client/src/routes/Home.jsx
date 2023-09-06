@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import RestaurantList from "../components/RestaurantList";
+import restaurantBackground from "../img/restaurant-background-6.jpg";
 
 const Home = () => {
   // const location = useLocation();
@@ -15,14 +16,26 @@ const Home = () => {
   // }, [location.state]);
 
   return (
-    <div className="d-flex flex-column justify-content-between">
-      {/* <NavbarComponent data={accountData} /> */}
-      <Header />
-      <div className="m-3">
-        <>
-          {/* <AddRestaurant /> */}
+    <div
+      style={{
+        height: "125vh",
+        backgroundImage: `url(${restaurantBackground})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "repeat-y",
+      }}
+      className="d-flex flex-column justify-content-between"
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Header />
+        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
           <RestaurantList />
-        </>
+        </div>
       </div>
     </div>
   );

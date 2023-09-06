@@ -56,7 +56,15 @@ const RestaurantList = (props) => {
 
   return (
     <div className="list-group">
-      <table className="table table-hover table-dark">
+      <table
+        style={{
+          border: "5px solid",
+          borderRadius: 25,
+          overflow: "hidden",
+          boxShadow: "0px 0px 10px #007BFF",
+        }}
+        className="table table-hover table-dark"
+      >
         <thead>
           <tr className="bg-primary">
             <th scope="col">Restaurant</th>
