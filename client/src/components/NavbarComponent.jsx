@@ -89,13 +89,20 @@ const NavbarComponent = ({ noSearch }) => {
     const lowerCaseQuery = searchValue.toLowerCase();
     const filteredList = searchValue
       ? list.filter((x) => x[searchBy].toLowerCase().includes(lowerCaseQuery))
-      : list;
+      : [];
     return filteredList;
   };
 
   const goToSelection = (id) => {
+    setVisible(false);
     navigate(`restaurants/${id}`);
   };
+
+  const filteredListByMethod = searchFilter(
+    searchedRestaurants,
+    restaurants,
+    "name"
+  );
 
   return (
     <div style={{ position: "fixed", width: "100%", zIndex: 1 }}>
@@ -123,9 +130,9 @@ const NavbarComponent = ({ noSearch }) => {
                   name="search"
                   className="form-control my-sm-1"
                   onChange={handleChange}
-                  onFocus={() => {
-                    setVisible(true);
-                  }}
+                  // onFocus={() => {
+                  //   setVisible(true);
+                  // }}
                 />
                 <button className="btn d-flex flex-row justify-content-center align-items-center">
                   <img src={SearchIcon} alt="Search Icon" />
@@ -152,16 +159,21 @@ const NavbarComponent = ({ noSearch }) => {
             borderRight: searchedRestaurants !== "" ? "3px solid #000" : "",
             borderBottom: searchedRestaurants !== "" ? "3px solid #000" : "",
           }}
-          className={`dropdown ${visible ? "v" : ""}`}
+          className={`dropdown ${
+            // visible || (restaurants && restaurants.length !== 0 && visible)
+            visible ? "v" : ""
+          }`}
           aria-labelledby="search"
         >
-          {!restaurants && visible && (
-            <div className="dropdown_item">No results</div>
-          )}
+          {filteredListByMethod.length === 0 &&
+            visible &&
+            searchedRestaurants !== "" && (
+              <div className="dropdown_item">No results</div>
+            )}
           {restaurants &&
             visible &&
             searchedRestaurants !== "" &&
-            searchFilter(searchedRestaurants, restaurants, "name").map((x) => (
+            filteredListByMethod.map((x) => (
               <div
                 className="dropdown_item"
                 key={x.id}
