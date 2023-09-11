@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +8,6 @@ const RestaurantList = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
 
   let navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await RestaurantFinder.get("/");
-        setRestaurants(response.data.data.restaurants);
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [setRestaurants]);
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();

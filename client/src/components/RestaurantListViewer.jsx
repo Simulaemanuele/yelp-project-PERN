@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const RestaurantListViewer = ({ img, goTo }) => {
+export const RestaurantListViewer = ({ img, goTo, text }) => {
   const [hover, setIsHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -57,7 +57,7 @@ export const RestaurantListViewer = ({ img, goTo }) => {
           }}
           className={`display-4`}
         >
-          Take a look!
+          {text}
         </p>
       </div>
     </div>

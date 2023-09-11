@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import RestaurantList from "../components/RestaurantList";
 import restaurantBackground from "../img/restaurant-background-6.jpg";
 import { RestaurantListViewer } from "../components/RestaurantListViewer";
-import restaurantCardBackgorund from "../img/restaurant-card-1.jpg";
+import restaurantCardBackground1 from "../img/restaurant-card-1.jpg";
+import restaurantCardBackground2 from "../img/restaurant-card-2.jpg";
+import RestaurantFinder from "../apis/RestaurantFinder";
+import { RestaurantsContext } from "../context/RestaurantsContext";
 
 const Home = () => {
-  // const location = useLocation();
-  // const { accountData } = useContext(RestaurantsContext);
-
-  // useEffect(() => {
-  //   if (location.state) {
-  //     console.log("state in Home screen passed");
-  //   } else {
-  //     console.log("There's a problem!!");
-  //   }
-  // }, [location.state]);
+  const { setRestaurants } = useContext(RestaurantsContext);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await RestaurantFinder.get("/");
+        setRestaurants(response.data.data.restaurants);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [setRestaurants]);
 
   return (
     <div
@@ -40,8 +46,14 @@ const Home = () => {
           className="d-flex flex-row justify-content-between"
         >
           <RestaurantListViewer
-            img={restaurantCardBackgorund}
+            img={restaurantCardBackground1}
             goTo={"listViewer"}
+            text={"Take a look!"}
+          />
+          <RestaurantListViewer
+            img={restaurantCardBackground2}
+            goTo={"listEdit"}
+            text={"Edit your fav!"}
           />
           {/* <RestaurantList /> */}
         </div>

@@ -12,6 +12,7 @@ import NavbarComponent from "./components/NavbarComponent";
 import RestaurantList from "./components/RestaurantList";
 import "./App.css";
 import "./fonts/CHEESEPIZZA.ttf";
+import ListEditRestaurants from "./routes/ListEditRestaurants";
 
 function App() {
   useEffect(() => {
@@ -55,7 +56,10 @@ function App() {
                 </>
               }
             />
-            <Route path="/listViewer" element={<RestaurantList />} />
+
+            <Route path="/listViewer" element={<ListEditRestaurants />} />
+            <Route path="/listEdit" element={<RestaurantList />} />
+
             <Route
               path="/signin"
               element={
@@ -75,6 +79,15 @@ function App() {
             />
             <Route
               path="/home/restaurants/:id"
+              element={
+                <>
+                  <NavbarComponent noSearch={true} />
+                  <RestaurantDetailPage />
+                </>
+              }
+            />
+            <Route
+              path="/listEdit/restaurants/:id"
               element={
                 <>
                   <NavbarComponent noSearch={true} />
