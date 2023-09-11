@@ -9,6 +9,9 @@ import WelcomePage from "./routes/WelcomePage";
 import SignIn from "./components/SignIn";
 import "../src/styles/App2.css";
 import NavbarComponent from "./components/NavbarComponent";
+import RestaurantList from "./components/RestaurantList";
+import "./App.css";
+import "./fonts/CHEESEPIZZA.ttf";
 
 function App() {
   useEffect(() => {
@@ -52,6 +55,7 @@ function App() {
                 </>
               }
             />
+            <Route path="/listViewer" element={<RestaurantList />} />
             <Route
               path="/signin"
               element={

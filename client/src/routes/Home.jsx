@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import RestaurantList from "../components/RestaurantList";
 import restaurantBackground from "../img/restaurant-background-6.jpg";
+import { RestaurantListViewer } from "../components/RestaurantListViewer";
+import restaurantCardBackgorund from "../img/restaurant-card-1.jpg";
 
 const Home = () => {
   // const location = useLocation();
@@ -23,7 +25,7 @@ const Home = () => {
         backgroundSize: "cover",
         backgroundRepeat: "repeat-y",
       }}
-      className="d-flex flex-column justify-content-between"
+      className="d-flex flex-row"
     >
       <div
         style={{
@@ -33,8 +35,15 @@ const Home = () => {
         }}
       >
         <Header />
-        <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-          <RestaurantList />
+        <div
+          style={{ height: "100%", marginLeft: "7%", marginRight: "7%" }}
+          className="d-flex flex-row justify-content-between"
+        >
+          <RestaurantListViewer
+            img={restaurantCardBackgorund}
+            goTo={"listViewer"}
+          />
+          {/* <RestaurantList /> */}
         </div>
       </div>
     </div>

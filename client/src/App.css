@@ -36,3 +36,71 @@
     transform: rotate(360deg);
   }
 }
+@font-face {
+  font-family: "cheesepizza";
+  src: local("CHEESEPIZZA"), url("fonts/CHEESEPIZZA.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-black";
+  src: local("Arboria-Black"),
+    url("fonts/arboria/Arboria-Black.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-blackItalic";
+  src: local("Arboria-BlackItalic"),
+    url("fonts/arboria/Arboria-BlackItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-bold";
+  src: local("Arboria-Bold"),
+    url("fonts/arboria/Arboria-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-boldItalic";
+  src: local("Arboria-BoldItalic"),
+    url("fonts/arboria/Arboria-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-book";
+  src: local("Arboria-Book"),
+    url("fonts/arboria/Arboria-Book.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-bookItalic";
+  src: local("Arboria-BookItalic"),
+    url("fonts/arboria/Arboria-BookItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-light";
+  src: local("Arboria-Light"),
+    url("fonts/arboria/Arboria-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-lightItalic";
+  src: local("Arboria-LightItalic"),
+    url("fonts/arboria/Arboria-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-medium";
+  src: local("Arboria-Medium"),
+    url("fonts/arboria/Arboria-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-mediumItalic";
+  src: local("Arboria-MediumItalic"),
+    url("fonts/arboria/Arboria-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-thin";
+  src: local("Arboria-Thin"),
+    url("fonts/arboria/Arboria-Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: "arboria-thinItalic";
+  src: local("Arboria-ThinItalic"),
+    url("fonts/arboria/Arboria-ThinItalic.ttf") format("truetype");
+}
+
+#root {
+  font-family: arboria-light;
+}
