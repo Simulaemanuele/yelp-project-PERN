@@ -27,11 +27,12 @@ export const RestaurantListViewer = ({ img, goTo, text }) => {
         width: "30vw",
         objectFit: "fill",
         borderRadius: 25,
-        boxShadow: "0px 0px 10px #007BFF",
+        boxShadow: "0px 0px 10px #999999",
         cursor: "pointer",
         transform: `scale(${hover === true ? "1.1" : "1.0"})`,
-        // overflow: "hidden",
-        // position: "relative",
+        transitionDuration: "500ms",
+        overflow: "hidden",
+        position: "relative",
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -52,7 +53,7 @@ export const RestaurantListViewer = ({ img, goTo, text }) => {
             fontWeight: `${hover === true ? "500" : ""}`,
             fontFamily: "arboria-light",
             color: `${
-              hover === true ? "#rgb(255,255,255)" : "rgba(255,255,255,0.8)"
+              hover === true ? "rgb(255,255,255)" : "rgba(255,255,255,0.8)"
             }`,
           }}
           className={`display-4`}

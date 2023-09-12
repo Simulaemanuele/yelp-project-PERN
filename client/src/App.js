@@ -12,7 +12,7 @@ import NavbarComponent from "./components/NavbarComponent";
 import RestaurantList from "./components/RestaurantList";
 import "./App.css";
 import "./fonts/CHEESEPIZZA.ttf";
-import ListEditRestaurants from "./routes/ListEditRestaurants";
+import ListViewRestaurants from "./routes/ListViewRestaurants";
 
 function App() {
   useEffect(() => {
@@ -57,8 +57,23 @@ function App() {
               }
             />
 
-            <Route path="/listViewer" element={<ListEditRestaurants />} />
-            <Route path="/listEdit" element={<RestaurantList />} />
+            <Route path="/listViewer" element={<ListViewRestaurants />} />
+            <Route
+              path="/listEdit"
+              element={
+                <div
+                  style={{
+                    backgroundColor: "#ffffff",
+                    height: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <RestaurantList />
+                </div>
+              }
+            />
 
             <Route
               path="/signin"

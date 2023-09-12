@@ -48,7 +48,7 @@ const RestaurantList = (props) => {
           border: "5px solid",
           borderRadius: 25,
           overflow: "hidden",
-          boxShadow: "0px 0px 10px #007BFF",
+          boxShadow: "0px 0px 15px #000000",
         }}
         className="table table-hover table-dark"
       >

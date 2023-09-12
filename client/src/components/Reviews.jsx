@@ -8,13 +8,21 @@ const Reviews = ({ reviews }) => {
         return (
           <div
             key={review.id}
-            className="card text-white bg-primary mb-3 mr-4"
-            style={{ maxWidth: "30%" }}
+            className="card text-black mb-3 mr-4"
+            style={{
+              maxWidth: "30%",
+              backgroundColor: "#ffffff",
+              borderRadius: 10,
+              width: "30%",
+            }}
           >
-            <div className="card-header d-flex justify-content-between">
+            <div
+              style={{ backgroundColor: "#9AC1E5", borderRadius: 10 }}
+              className="card-header d-flex align-items-center justify-content-around"
+            >
               <span>{review.name}</span>
               <span>
-                <StarRating rating={review.rating} />
+                <StarRating rating={review.rating} color={"#337EC4"} />
               </span>
             </div>
             <div className="card-body">

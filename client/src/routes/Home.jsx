@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import Header from "../components/Header";
-import RestaurantList from "../components/RestaurantList";
 import restaurantBackground from "../img/restaurant-background-6.jpg";
 import { RestaurantListViewer } from "../components/RestaurantListViewer";
 import restaurantCardBackground1 from "../img/restaurant-card-1.jpg";
@@ -26,12 +25,12 @@ const Home = () => {
   return (
     <div
       style={{
-        height: "125vh",
+        height: "100%",
         backgroundImage: `url(${restaurantBackground})`,
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundRepeat: "repeat-y",
       }}
-      className="d-flex flex-row"
+      className="d-flex flex-column"
     >
       <div
         style={{
@@ -40,9 +39,14 @@ const Home = () => {
           height: "100%",
         }}
       >
-        <Header />
+        <Header title={"Hey, track your favourites..."} />
         <div
-          style={{ height: "100%", marginLeft: "7%", marginRight: "7%" }}
+          style={{
+            height: "100%",
+            marginLeft: "7%",
+            marginRight: "7%",
+            marginBottom: "10%",
+          }}
           className="d-flex flex-row justify-content-between"
         >
           <RestaurantListViewer

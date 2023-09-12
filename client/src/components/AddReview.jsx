@@ -12,6 +12,15 @@ const AddReview = ({ accountData, setAccountData }) => {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("Rating");
   const [errorSubmit, setErrorSubmit] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
 
   // const navigate = useNavigate();
 
@@ -109,9 +118,18 @@ const AddReview = ({ accountData, setAccountData }) => {
               : false
           }
           onClick={handleSubmit}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           type="submit"
-          style={{ width: "100%", borderRadius: 15 }}
-          className="btn btn-primary py-3"
+          style={{
+            width: "100%",
+            borderRadius: 15,
+            backgroundColor: isHover === true ? "#337EC4" : "#2D71B0",
+            color: "#ffffff",
+            transform: `scale(${isHover === true ? "1.1" : "1.0"})`,
+            transitionDuration: "1000ms",
+          }}
+          className="btn py-3"
         >
           Submit
         </button>

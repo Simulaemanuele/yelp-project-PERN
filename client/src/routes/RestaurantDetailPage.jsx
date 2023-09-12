@@ -33,7 +33,7 @@ const RestaurantDetailPage = () => {
   const renderRating = (restaurant) => {
     return (
       <>
-        <StarRating rating={restaurant.avarage_rating} />
+        <StarRating rating={restaurant.avarage_rating} color={"#DABD24"} />
         <span className="text-warning ml-1">
           {restaurant.count ? `(${restaurant.count})` : "(0)"}
         </span>
