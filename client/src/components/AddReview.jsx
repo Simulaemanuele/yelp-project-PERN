@@ -127,9 +127,11 @@ const AddReview = ({ accountData, setAccountData }) => {
             backgroundColor: isHover === true ? "#337EC4" : "#2D71B0",
             color: "#ffffff",
             transform: `scale(${isHover === true ? "1.1" : "1.0"})`,
-            transitionDuration: "1000ms",
+            fontWeight: `${isHover === true ? "bold" : ""}`,
+            fontSize: `${isHover === true ? "23px" : ""}`,
+            transitionDuration: "500ms",
           }}
-          className="btn py-3"
+          className="py-3"
         >
           Submit
         </button>
