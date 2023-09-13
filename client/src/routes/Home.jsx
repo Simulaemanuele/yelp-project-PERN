@@ -45,9 +45,10 @@ const Home = () => {
             height: "100%",
             marginLeft: "7%",
             marginRight: "7%",
-            marginBottom: "10%",
+            paddingBottom: "10%",
+            paddingTop: "10%",
           }}
-          className="d-flex flex-row justify-content-between"
+          className="d-flex flex-row justify-content-around"
         >
           <RestaurantListViewer
             img={restaurantCardBackground1}

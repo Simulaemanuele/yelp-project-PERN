@@ -9,10 +9,10 @@ import WelcomePage from "./routes/WelcomePage";
 import SignIn from "./components/SignIn";
 import "../src/styles/App2.css";
 import NavbarComponent from "./components/NavbarComponent";
-import RestaurantList from "./components/RestaurantList";
 import "./App.css";
 import "./fonts/CHEESEPIZZA.ttf";
 import ListViewRestaurants from "./routes/ListViewRestaurants";
+import ListEditRestaurants from "./routes/ListEditRestaurants";
 
 function App() {
   useEffect(() => {
@@ -61,17 +61,10 @@ function App() {
             <Route
               path="/listEdit"
               element={
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    height: "100vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <RestaurantList />
-                </div>
+                <>
+                  <NavbarComponent />
+                  <ListEditRestaurants />
+                </>
               }
             />
 
