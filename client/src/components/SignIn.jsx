@@ -10,6 +10,7 @@ const SignIn = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
 
   const renderMessage = () => {
@@ -70,7 +71,9 @@ const SignIn = () => {
         console.log("HERE IS THE RESPONSE: ", res);
         if (res.data.status === "failed") {
           setError(true);
+          setIsDisabled(true);
         } else {
+          setIsDisabled(false);
           setUserCreated(true);
         }
       })
@@ -84,90 +87,127 @@ const SignIn = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="d-flex flex-column vh-100 justify-content-center align-items-center">
-        <div className="d-flex flex-column justify-content-between align-items-center">
-          <h1 className="display-1 text-white">Please create an account</h1>
-          <h2 className="display-4 text-white pb-5">
-            Insert a valid email and a password
-          </h2>
-        </div>
-        {userCreated === false ? (
-          <div style={{ zIndex: 1 }} className="p-3 bg-white w-25">
-            <form onSubmit={handleRegister}>
-              <div className="mb-3">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="username"
-                  placeholder="Select Username"
-                  className="form-control"
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                    if (username !== "") {
-                      setLoading(true);
-                    } else if (email === "") {
-                      setLoading(false);
-                    }
-                  }}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  placeholder="Enter Email"
-                  className="form-control"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (email !== "") {
-                      setLoading(true);
-                    } else if (email === "") {
-                      setLoading(false);
-                    }
-                  }}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  placeholder="Enter Password"
-                  className="form-control"
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (password !== "") {
-                      setLoading(true);
-                    } else if (password === "") {
-                      setLoading(false);
-                    }
-                  }}
-                />
-                {loading === true && renderMessage()}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
+      <div
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <div className="d-flex flex-column vh-100 justify-content-center align-items-center">
+          <div className="d-flex flex-column justify-content-between align-items-center">
+            <h1 className="display-1 text-white">Please create an account</h1>
+            <h2 className="display-4 text-white pb-5">
+              Insert a valid email and a password
+            </h2>
+          </div>
+          {userCreated === false ? (
+            <div
+              style={{
+                zIndex: 1,
+                borderRadius: 25,
+                boxShadow: "0px 0px 10px #999999",
+                backgroundColor: "#333333",
+              }}
+              className="p-3 w-25"
+            >
+              <form
+                onSubmit={
+                  email !== "" &&
+                  password !== "" &&
+                  username !== "" &&
+                  loading === true &&
+                  error === false
+                    ? handleRegister
+                    : null
+                }
               >
-                <button className="btn btn-success">Create account</button>
-              </div>
-            </form>
-            {error && (
-              <p className="text-danger m-3">
-                Email or password are not valid!
-              </p>
-            )}
-          </div>
-        ) : (
-          <div className="p-3 bg-white w-25">
-            <p>Congratulations!! Account created</p>
-            <button onClick={() => navigate("/")} className="btn btn-success">
-              Return to Login
-            </button>
-          </div>
-        )}
+                <div className="mb-3">
+                  <label className="text-light" htmlFor="username">
+                    Username
+                  </label>
+                  <input
+                    type="username"
+                    placeholder="Select Username"
+                    className="form-control"
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      if (username !== "") {
+                        setLoading(true);
+                      } else if (email === "") {
+                        setLoading(false);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="text-light" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Enter Email"
+                    className="form-control"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (email !== "") {
+                        setLoading(true);
+                      } else if (email === "") {
+                        setLoading(false);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="text-light" htmlFor="password">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="Enter Password"
+                    className="form-control"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (password !== "") {
+                        setLoading(true);
+                      } else if (password === "") {
+                        setLoading(false);
+                      }
+                    }}
+                  />
+                  {loading === true && renderMessage()}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <button
+                    disabled={isDisabled === true ? true : false}
+                    className="btn btn-success"
+                  >
+                    Create account
+                  </button>
+                </div>
+              </form>
+              {error && (
+                <p className="text-danger m-3">
+                  Email or password are not valid!
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="p-3 bg-white w-25">
+              <p>Congratulations!! Account created</p>
+              <button onClick={() => navigate("/")} className="btn btn-success">
+                Return to Login
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

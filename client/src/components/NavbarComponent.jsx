@@ -52,6 +52,7 @@ const NavbarComponent = ({ noSearch }) => {
   }, [data, restaurants, setAccountData, setRestaurants]);
 
   const renderUserInitial = (username) => {
+    console.log("USERNAME IN RENDER INITIAL METHOD ======>  ", username);
     const result =
       username !== "" || username !== undefined
         ? username.split("")[0].toUpperCase()

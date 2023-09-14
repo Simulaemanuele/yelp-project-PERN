@@ -1,13 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Login from "../components/Login";
-import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RestaurantsContext } from "../context/RestaurantsContext";
-import NavbarComponent from "../components/NavbarComponent";
-import Home from "./Home";
-import SignIn from "../components/SignIn";
-import UpdatePage from "./UpdatePage";
-import RestaurantDetailPage from "./RestaurantDetailPage";
 
 const WelcomePage = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +13,11 @@ const WelcomePage = () => {
   const { accountData, setAccountData } = useContext(RestaurantsContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [location.pathname]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
