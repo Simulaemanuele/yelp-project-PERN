@@ -34,10 +34,10 @@ const RestaurantList = (props) => {
       return <span className="text-warning">0 reviews</span>;
     }
     return (
-      <>
-        <StarRating rating={restaurant.avarage_rating} />
+      <div className="d-flex flex-row align-items-center">
+        <StarRating rating={restaurant.avarage_rating} color={"#9AC1E5"} />
         <span className="text-warning ml-1">({restaurant.count})</span>
-      </>
+      </div>
     );
   };
 
@@ -53,13 +53,25 @@ const RestaurantList = (props) => {
         className="table table-hover table-dark"
       >
         <thead>
-          <tr className="bg-primary">
-            <th scope="col">Restaurant</th>
-            <th scope="col">Location</th>
-            <th scope="col">Price Range</th>
-            <th scope="col">Ratings</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+          <tr style={{ backgroundColor: "#9AC1E5" }}>
+            <th className="text-dark" scope="col">
+              Restaurant
+            </th>
+            <th className="text-dark" scope="col">
+              Location
+            </th>
+            <th className="text-dark" scope="col">
+              Price Range
+            </th>
+            <th className="text-dark" scope="col">
+              Ratings
+            </th>
+            <th className="text-dark" scope="col">
+              Edit
+            </th>
+            <th className="text-dark" scope="col">
+              Delete
+            </th>
           </tr>
         </thead>
         <tbody>

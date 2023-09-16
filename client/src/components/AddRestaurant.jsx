@@ -1,16 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 
-const AddRestaurant = () => {
+const AddRestaurant = ({ setPressed }) => {
   const { addRestaurants } = useContext(RestaurantsContext);
 
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [priceRange, setPriceRange] = useState("Price Range");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (location === "" || priceRange === "Price Range") {
+      setError(true);
+    }
     try {
       const response = await RestaurantFinder.post("/", {
         name,
@@ -18,56 +22,85 @@ const AddRestaurant = () => {
         price_range: priceRange,
       });
       console.log(response);
-      addRestaurants(response.data.data.restaurant);
+      if (name !== "" || location !== "" || priceRange !== "Price Range") {
+        addRestaurants(response.data.data.restaurant);
+      }
+      setTimeout(setPressed(false), 500);
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    if (name !== "" || location !== "" || priceRange !== "Price Range") {
+      setError(false);
+    }
+  }, [name, location, priceRange]);
+
   return (
     <div
-      className="mb-4"
-      style={{ display: "block", position: "relative", zIndex: -1 }}
+      style={{
+        backgroundColor: "#343A40",
+        padding: 20,
+        borderRadius: 25,
+        boxShadow: "0px 0px 15px #000000",
+        height: "50%",
+      }}
+      className="d-flex flex-column justify-content-center align-items-center"
     >
-      <form action="">
-        <div className="form-row">
-          <div className="col">
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              className="form-control"
-              placeholder="name"
-            />
-          </div>
-          <div className="col">
-            <input
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              type="text"
-              className="form-control"
-              placeholder="location"
-            />
-          </div>
-          <div className="col">
-            <select
-              value={priceRange}
-              onChange={(e) => setPriceRange(e.target.value)}
-              className="custom-select mr-sm-2"
-            >
-              <option disabled>Price Range</option>
-              <option value="1">$</option>
-              <option value="2">$$</option>
-              <option value="3">$$$</option>
-              <option value="4">$$$$</option>
-              <option value="5">$$$$$</option>
-            </select>
-          </div>
-          <button onClick={handleSubmit} className="btn btn-primary">
-            Add
-          </button>
+      <h3 className="text-light mb-3 font-weight-bold text-nowrap">
+        Add a restaurant
+      </h3>
+      <div className="w-100 mb-2">
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+          className="form-control"
+          placeholder="Name"
+        />
+      </div>
+      <div className="w-100 mb-2">
+        <input
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          type="text"
+          className="form-control"
+          placeholder="Location"
+        />
+      </div>
+      <div className="w-100 mb-2">
+        <select
+          value={priceRange}
+          onChange={(e) => setPriceRange(e.target.value)}
+          className="custom-select mr-sm-2"
+        >
+          <option disabled>Price Range</option>
+          <option value="1">$</option>
+          <option value="2">$$</option>
+          <option value="3">$$$</option>
+          <option value="4">$$$$</option>
+          <option value="5">$$$$$</option>
+        </select>
+      </div>
+      <button
+        style={{ backgroundColor: "#9AC1E5", borderRadius: 5 }}
+        onClick={handleSubmit}
+        className="btn w-100 text-black font-weight-bold"
+        disabled={name === ""}
+      >
+        Add Restaurant
+      </button>
+      {error === true && (
+        <div className="d-flex flex-column mt-2">
+          <span className="text-danger small">
+            You cannot add an empty record!
+          </span>
+          <span className="text-danger small">
+            Please fill all the fields 👍
+          </span>
         </div>
-      </form>
+      )}
     </div>
   );
 };
