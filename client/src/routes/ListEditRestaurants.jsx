@@ -18,14 +18,9 @@ function ListEditRestaurants() {
     setIsHover(false);
   };
 
-  const handlePressButton = () => {
-    setPressed((prevState) => {
-      if (switchBool === prevState) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+  const handlePressButton = (e) => {
+    e.preventDefault();
+    setPressed(true);
   };
 
   const wrapperRef = useRef(null);
@@ -53,7 +48,10 @@ function ListEditRestaurants() {
         <div style={{ marginTop: "10%", marginBottom: "4%" }}>
           <Header title={"Edit your favourites"} />
         </div>
-        <div className="d-flex flex-row justify-content-center">
+        <div
+          style={{ width: "100%", marginRight: "14.5%" }}
+          className="d-flex flex-row justify-content-end"
+        >
           <RestaurantList />
           <div style={{ position: "relative" }}>
             <button
@@ -69,11 +67,16 @@ function ListEditRestaurants() {
               <i class="fas fa-plus"></i>
             </button>
           </div>
-          {pressed === true && (
-            <div ref={wrapperRef} style={{ marginLeft: "1%" }}>
-              <AddRestaurant setPressed={setPressed} />
-            </div>
-          )}
+
+          <div
+            ref={wrapperRef}
+            style={{
+              marginLeft: "1%",
+            }}
+            className={`${pressed === true ? "visible" : "hidden"}`}
+          >
+            <AddRestaurant setPressed={setPressed} />
+          </div>
         </div>
       </div>
     </div>

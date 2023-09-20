@@ -9,6 +9,15 @@ const AddRestaurant = ({ setPressed }) => {
   const [location, setLocation] = useState("");
   const [priceRange, setPriceRange] = useState("Price Range");
   const [error, setError] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +40,11 @@ const AddRestaurant = ({ setPressed }) => {
     }
   };
 
+  const handleOnCLick = (e) => {
+    e.preventDefault();
+    setPressed(false);
+  };
+
   useEffect(() => {
     if (name !== "" || location !== "" || priceRange !== "Price Range") {
       setError(false);
@@ -48,9 +62,25 @@ const AddRestaurant = ({ setPressed }) => {
       }}
       className="d-flex flex-column justify-content-center align-items-center"
     >
-      <h3 className="text-light mb-3 font-weight-bold text-nowrap">
-        Add a restaurant
-      </h3>
+      <div className="d-flex justify-content-between">
+        <h3 className="text-light mb-3 font-weight-bold text-nowrap">
+          Add a restaurant
+        </h3>
+        <div
+          style={{
+            position: "relative",
+            bottom: "50%",
+            cursor: "pointer",
+            transform: `scale(${isHover === true ? "1.2" : "1.0"})`,
+          }}
+          className={`${isHover === true ? "text-warning" : "text-light"}`}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleOnCLick}
+        >
+          x
+        </div>
+      </div>
       <div className="w-100 mb-2">
         <input
           value={name}

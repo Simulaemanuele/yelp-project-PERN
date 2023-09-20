@@ -48,3 +48,17 @@
   right: -20px;
   top: -15px;
 }
+
+.card {
+  border-radius: 25px;
+  border: none;
+  height: fit-content;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
