@@ -2,12 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
 
-const AddRestaurant = ({ setPressed }) => {
+const AddRestaurant = ({
+  setPressed,
+  name,
+  location,
+  priceRange,
+  setName,
+  setLocation,
+  setPriceRange,
+  clearForm,
+}) => {
   const { addRestaurants } = useContext(RestaurantsContext);
 
-  const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [priceRange, setPriceRange] = useState("Price Range");
+  // const [name, setName] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [priceRange, setPriceRange] = useState("Price Range");
   const [error, setError] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
@@ -21,7 +30,7 @@ const AddRestaurant = ({ setPressed }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (location === "" || priceRange === "Price Range") {
+    if (priceRange === "Price Range") {
       setError(true);
     }
     try {
@@ -31,10 +40,11 @@ const AddRestaurant = ({ setPressed }) => {
         price_range: priceRange,
       });
       console.log(response);
-      if (name !== "" || location !== "" || priceRange !== "Price Range") {
+      if ((name !== "" && location !== "") || priceRange !== "Price Range") {
         addRestaurants(response.data.data.restaurant);
       }
       setTimeout(setPressed(false), 500);
+      setTimeout(clearForm(), 500);
     } catch (err) {
       console.log(err);
     }
@@ -42,6 +52,7 @@ const AddRestaurant = ({ setPressed }) => {
 
   const handleOnCLick = (e) => {
     e.preventDefault();
+    clearForm();
     setPressed(false);
   };
 

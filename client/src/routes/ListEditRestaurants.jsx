@@ -9,6 +9,9 @@ function ListEditRestaurants() {
   let switchBool = false;
   const [isHover, setIsHover] = useState(false);
   const [pressed, setPressed] = useState(switchBool);
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [priceRange, setPriceRange] = useState("Price Range");
 
   const handleMouseEnter = () => {
     setIsHover(true);
@@ -23,8 +26,14 @@ function ListEditRestaurants() {
     setPressed(true);
   };
 
+  const clearForm = () => {
+    setName("");
+    setLocation("");
+    setPriceRange("Price Range");
+  };
+
   const wrapperRef = useRef(null);
-  useOutsideClicker(wrapperRef, setPressed);
+  useOutsideClicker(wrapperRef, setPressed, clearForm);
 
   return (
     <div
@@ -62,6 +71,7 @@ function ListEditRestaurants() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={handlePressButton}
+              disabled={pressed === true ? true : false}
               className="circle-plus-button"
             >
               <i class="fas fa-plus"></i>
@@ -75,7 +85,16 @@ function ListEditRestaurants() {
             }}
             className={`${pressed === true ? "visible" : "hidden"}`}
           >
-            <AddRestaurant setPressed={setPressed} />
+            <AddRestaurant
+              setPressed={setPressed}
+              name={name}
+              location={location}
+              priceRange={priceRange}
+              setName={setName}
+              setLocation={setLocation}
+              setPriceRange={setPriceRange}
+              clearForm={clearForm}
+            />
           </div>
         </div>
       </div>
