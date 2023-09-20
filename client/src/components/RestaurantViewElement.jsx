@@ -8,7 +8,7 @@ function RestaurantViewElement({ restaurant }) {
     <div
       style={{
         borderRadius: 25,
-        boxShadow: "0px 0px 10px #007BFF",
+        boxShadow: "0px 0px 10px #999999",
         paddingTop: 12.5,
         paddingBottom: 12.5,
         justifyContent: "space-evenly",

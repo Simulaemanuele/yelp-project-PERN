@@ -52,7 +52,6 @@
 .card {
   border-radius: 25px;
   border: none;
-  height: fit-content;
 }
 
 .visible {

@@ -108,8 +108,12 @@ const NavbarComponent = ({ noSearch }) => {
   return (
     <div style={{ position: "fixed", width: "100%", zIndex: 1 }}>
       <div
-        style={{ backgroundColor: "rgba(52, 58, 64, 0.9)" }}
-        className="d-flex flex-row justify-content-between align-items-center border-top border-bottom border-primary py-1"
+        style={{
+          backgroundColor: "rgba(52, 58, 64, 0.9)",
+          borderTop: "1px solid #999999",
+          borderBottom: "1px solid #999999",
+        }}
+        className="d-flex flex-row justify-content-between align-items-center py-1"
       >
         <div
           className="h4 ml-4 text-white"

@@ -14,6 +14,7 @@ const Reviews = ({ reviews }) => {
               backgroundColor: "#ffffff",
               borderRadius: 10,
               width: "30%",
+              boxShadow: "0px 0px 10px #999999",
             }}
           >
             <div

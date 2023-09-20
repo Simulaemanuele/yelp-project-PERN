@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
-import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 
-const RestaurantList = (props) => {
-  const { restaurants, setRestaurants } = useContext(RestaurantsContext);
-
+const RestaurantList = ({ restaurants, setRestaurants }) => {
   let navigate = useNavigate();
 
   const handleDelete = async (e, id) => {

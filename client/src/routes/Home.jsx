@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import restaurantBackground from "../img/restaurant-background-6.jpg";
 import { RestaurantListViewer } from "../components/RestaurantListViewer";
@@ -6,9 +6,12 @@ import restaurantCardBackground1 from "../img/restaurant-card-1.jpg";
 import restaurantCardBackground2 from "../img/restaurant-card-2.jpg";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
+import Loading from "../components/Loading";
 
 const Home = () => {
   const { setRestaurants } = useContext(RestaurantsContext);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,12 +28,11 @@ const Home = () => {
   return (
     <div
       style={{
-        height: "100%",
+        height: loading === true ? "100vh" : "100%",
         backgroundImage: `url(${restaurantBackground})`,
         backgroundSize: "100% 100%",
         backgroundRepeat: "repeat-y",
       }}
-      className="d-flex flex-column"
     >
       <div
         style={{
@@ -38,30 +40,38 @@ const Home = () => {
           width: "100%",
           height: "100%",
         }}
+        className={`d-flex flex-column ${
+          loading === true ? "justify-content-center" : ""
+        } ${loading === true ? "align-items-center" : ""}`}
       >
-        <Header title={"Hey, track your favourites..."} />
-        <div
-          style={{
-            height: "100%",
-            marginLeft: "7%",
-            marginRight: "7%",
-            paddingBottom: "10%",
-            paddingTop: "10%",
-          }}
-          className="d-flex flex-row justify-content-around"
-        >
-          <RestaurantListViewer
-            img={restaurantCardBackground1}
-            goTo={"listViewer"}
-            text={"Take a look!"}
-          />
-          <RestaurantListViewer
-            img={restaurantCardBackground2}
-            goTo={"listEdit"}
-            text={"Edit your fav!"}
-          />
-          {/* <RestaurantList /> */}
-        </div>
+        {loading === true && <Loading time={500} handleLoading={setLoading} />}
+        {loading === false && (
+          <>
+            <Header title={"Hey, track your favourites..."} />
+            <div
+              style={{
+                height: "100%",
+                marginLeft: "7%",
+                marginRight: "7%",
+                paddingBottom: "10%",
+                paddingTop: "10%",
+              }}
+              className="d-flex flex-row justify-content-around"
+            >
+              <RestaurantListViewer
+                img={restaurantCardBackground1}
+                goTo={"listViewer"}
+                text={"Take a look!"}
+              />
+              <RestaurantListViewer
+                img={restaurantCardBackground2}
+                goTo={"listEdit"}
+                text={"Edit your fav!"}
+              />
+              {/* <RestaurantList /> */}
+            </div>{" "}
+          </>
+        )}
       </div>
     </div>
   );
