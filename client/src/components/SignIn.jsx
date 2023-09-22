@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import restaurantBackgroundAlter from "../img/restaurant-background-3.jpg";
+import Loading from "./Loading";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ const SignIn = () => {
   const [userCreated, setUserCreated] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(true);
   const [username, setUsername] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
@@ -75,6 +77,7 @@ const SignIn = () => {
         } else {
           setIsDisabled(false);
           setUserCreated(true);
+          setLoading2(true);
         }
       })
       .catch((err) => console.log(err));
@@ -85,6 +88,7 @@ const SignIn = () => {
       style={{
         backgroundImage: `url(${restaurantBackgroundAlter})`,
         backgroundSize: "cover",
+        height: loading2 === true ? "100vh" : "100%",
       }}
     >
       <div
@@ -93,121 +97,146 @@ const SignIn = () => {
           width: "100%",
           height: "100%",
         }}
+        className="d-flex flex-column vh-100 justify-content-center align-items-center"
       >
-        <div className="d-flex flex-column vh-100 justify-content-center align-items-center">
-          <div className="d-flex flex-column justify-content-between align-items-center">
-            <h1 className="display-1 text-white">Please create an account</h1>
-            <h2 className="display-4 text-white pb-5">
-              Insert a valid email and a password
-            </h2>
-          </div>
-          {userCreated === false ? (
+        {loading2 === true && (
+          <Loading time={1000} handleLoading={setLoading2} />
+        )}
+        {loading2 === false && (
+          <>
             <div
-              style={{
-                zIndex: 1,
-                borderRadius: 25,
-                boxShadow: "0px 0px 10px #999999",
-                backgroundColor: "#333333",
-              }}
-              className="p-3 w-25"
+              style={{ width: "100%" }}
+              className="d-flex flex-column justify-content-center align-items-center"
             >
-              <form
-                onSubmit={
-                  email !== "" &&
-                  password !== "" &&
-                  username !== "" &&
-                  loading === true &&
-                  error === false
-                    ? handleRegister
-                    : null
-                }
-              >
-                <div className="mb-3">
-                  <label className="text-light" htmlFor="username">
-                    Username
-                  </label>
-                  <input
-                    type="username"
-                    placeholder="Select Username"
-                    className="form-control"
-                    onChange={(e) => {
-                      setUsername(e.target.value);
-                      if (username !== "") {
-                        setLoading(true);
-                      } else if (email === "") {
-                        setLoading(false);
-                      }
-                    }}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="text-light" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="Enter Email"
-                    className="form-control"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (email !== "") {
-                        setLoading(true);
-                      } else if (email === "") {
-                        setLoading(false);
-                      }
-                    }}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="text-light" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter Password"
-                    className="form-control"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      if (password !== "") {
-                        setLoading(true);
-                      } else if (password === "") {
-                        setLoading(false);
-                      }
-                    }}
-                  />
-                  {loading === true && renderMessage()}
-                </div>
+              <div className="d-flex flex-column justify-content-between align-items-center">
+                <h1 className="display-1 text-white">
+                  Please create an account
+                </h1>
+                <h2 className="display-4 text-white pb-5">
+                  Insert a valid email and a password
+                </h2>
+              </div>
+              {userCreated === false ? (
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    zIndex: 1,
+                    borderRadius: 25,
+                    boxShadow: "0px 0px 10px #999999",
+                    backgroundColor: "#333333",
                   }}
+                  className="p-3 w-25"
                 >
+                  <form
+                    onSubmit={
+                      email !== "" &&
+                      password !== "" &&
+                      username !== "" &&
+                      loading === true &&
+                      error === false
+                        ? handleRegister
+                        : null
+                    }
+                  >
+                    <div className="mb-3">
+                      <label className="text-light" htmlFor="username">
+                        Username
+                      </label>
+                      <input
+                        type="username"
+                        placeholder="Select Username"
+                        className="form-control"
+                        onChange={(e) => {
+                          setUsername(e.target.value);
+                          if (username !== "") {
+                            setLoading(true);
+                          } else if (email === "") {
+                            setLoading(false);
+                          }
+                        }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="text-light" htmlFor="email">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="Enter Email"
+                        className="form-control"
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (email !== "") {
+                            setLoading(true);
+                          } else if (email === "") {
+                            setLoading(false);
+                          }
+                        }}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label className="text-light" htmlFor="password">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="Enter Password"
+                        className="form-control"
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                          if (password !== "") {
+                            setLoading(true);
+                          } else if (password === "") {
+                            setLoading(false);
+                          }
+                        }}
+                      />
+                      {loading === true && renderMessage()}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <button
+                        disabled={isDisabled === true ? true : false}
+                        className="btn btn-success"
+                      >
+                        Create account
+                      </button>
+                    </div>
+                  </form>
+                  {error && (
+                    <p className="text-danger m-3">
+                      Email or password are not valid!
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    borderRadius: 25,
+                    boxShadow: "0px 0px 10px #999999",
+                    backgroundColor: "#333333",
+                  }}
+                  className="p-3 w-25"
+                >
+                  <p className="text-light">
+                    Congratulations!! Account created
+                  </p>
                   <button
-                    disabled={isDisabled === true ? true : false}
+                    onClick={() => navigate("/")}
                     className="btn btn-success"
                   >
-                    Create account
+                    Return to Login
                   </button>
                 </div>
-              </form>
-              {error && (
-                <p className="text-danger m-3">
-                  Email or password are not valid!
-                </p>
               )}
             </div>
-          ) : (
-            <div className="p-3 bg-white w-25">
-              <p>Congratulations!! Account created</p>
-              <button onClick={() => navigate("/")} className="btn btn-success">
-                Return to Login
-              </button>
-            </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );
