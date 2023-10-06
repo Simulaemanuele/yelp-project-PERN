@@ -13,6 +13,7 @@ import "./App.css";
 import "./fonts/CHEESEPIZZA.ttf";
 import ListViewRestaurants from "./routes/ListViewRestaurants";
 import ListEditRestaurants from "./routes/ListEditRestaurants";
+import ProfileScreen from "./routes/ProfileScreen";
 
 function App() {
   useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
                 </>
               }
             />
+            <Route path="/home/profile" element={<ProfileScreen />} />
 
             <Route path="/listViewer" element={<ListViewRestaurants />} />
             <Route

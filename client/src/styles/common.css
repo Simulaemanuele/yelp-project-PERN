@@ -16,6 +16,24 @@
   }
 }
 
+.dropdown-alter {
+  position: absolute;
+  left: 91%;
+  min-width: 0;
+  max-width: 248px;
+  height: 100%;
+  max-height: 250px;
+  overflow-x: hidden;
+  scrollbar-color: red;
+  scrollbar-width: thin;
+  background-color: #fff;
+  visibility: hidden;
+  z-index: 1;
+  &.v {
+    visibility: visible;
+  }
+}
+
 .dropdown_item {
   display: flex;
   flex-direction: column;

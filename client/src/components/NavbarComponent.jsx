@@ -8,6 +8,7 @@ import StarRating from "./StarRating";
 const NavbarComponent = ({ noSearch }) => {
   const [username, setUsername] = useState();
   const [visible, setVisible] = useState(false);
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const [searchedRestaurants, setSearchedRestaurant] = useState("");
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ const NavbarComponent = ({ noSearch }) => {
     setAccountData,
   } = useContext(RestaurantsContext);
   console.log("Data in NAVBAR component ===> ", data);
+
+  const profileMenuOptions = [
+    { id: 0, name: "Go to Profile..." },
+    { id: 1, name: "Logout" },
+  ];
 
   // useEffect(() => {
   //   setUsername(data.username);
@@ -79,6 +85,10 @@ const NavbarComponent = ({ noSearch }) => {
     }
   };
 
+  const handleProfileMenu = () => {
+    setProfileMenuVisible((prevState) => !prevState);
+  };
+
   const handleChange = (e) => {
     setSearchedRestaurant(e.target.value);
     if (!visible) {
@@ -95,8 +105,13 @@ const NavbarComponent = ({ noSearch }) => {
   };
 
   const goToSelection = (id) => {
-    setVisible(false);
-    navigate(`restaurants/${id}`);
+    if (id === "") {
+      setProfileMenuVisible(false);
+      navigate(`profile`);
+    } else {
+      setVisible(false);
+      navigate(`restaurants/${id}`);
+    }
   };
 
   const filteredListByMethod = searchFilter(
@@ -147,7 +162,7 @@ const NavbarComponent = ({ noSearch }) => {
           )}
           <div
             style={{ width: 32, height: 32 }}
-            onClick={(e) => handleLogout(e)}
+            onClick={handleProfileMenu}
             className="d-flex justify-content-center align-items-center rounded-circle bg-primary text-white my-auto h4 mr-4"
           >
             {username !== "" && username !== undefined
@@ -199,6 +214,32 @@ const NavbarComponent = ({ noSearch }) => {
                   </div>
                 </div>
                 Location: {x.location}
+              </div>
+            ))}
+        </div>
+
+        <div
+          ref={dropdownRef}
+          style={{
+            borderLeft: searchedRestaurants !== "" ? "3px solid #000" : "",
+            borderRight: searchedRestaurants !== "" ? "3px solid #000" : "",
+            borderBottom: searchedRestaurants !== "" ? "3px solid #000" : "",
+          }}
+          className={`dropdown-alter ${
+            // visible || (restaurants && restaurants.length !== 0 && visible)
+            profileMenuVisible ? "v" : ""
+          }`}
+        >
+          {profileMenuVisible &&
+            profileMenuOptions.map((option) => (
+              <div
+                className="dropdown_item"
+                key={option.id}
+                onClick={(e) =>
+                  1 !== option.id ? goToSelection("") : handleLogout(e)
+                }
+              >
+                {option.name}
               </div>
             ))}
         </div>
