@@ -57,9 +57,45 @@ function App() {
                 </>
               }
             />
-            <Route path="/home/profile" element={<ProfileScreen />} />
+            <Route
+              path="/home/profile"
+              element={
+                <>
+                  <NavbarComponent noSearch={true} />
+                  <ProfileScreen />
+                </>
+              }
+            />
 
-            <Route path="/listViewer" element={<ListViewRestaurants />} />
+            <Route
+              path="/listEdit/profile"
+              element={
+                <>
+                  <NavbarComponent noSearch={true} />
+                  <ProfileScreen />
+                </>
+              }
+            />
+
+            <Route
+              path="/listViewer/profile"
+              element={
+                <>
+                  <NavbarComponent noSearch={true} />
+                  <ProfileScreen />
+                </>
+              }
+            />
+
+            <Route
+              path="/listViewer"
+              element={
+                <>
+                  <NavbarComponent noSearch={true} />
+                  <ListViewRestaurants />
+                </>
+              }
+            />
             <Route
               path="/listEdit"
               element={

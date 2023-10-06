@@ -175,6 +175,50 @@ app.post("/signin", async (req, res) => {
   }
 });
 
+app.get("/api/v1/usersDetails/:id", async (req, res) => {
+  console.log(req.params);
+
+  try {
+    const restaurant = await db.query(
+      "SELECT lo.*, ud.full_name, ud.genre, ud.eta, ud.description FROM login lo LEFT JOIN users_details ud ON lo.account_id = ud.account_id WHERE account_id = $1",
+      [req.params.account_id]
+    ); // ' $ ' is a pg notation that works like a placeholder and the 2nd argument as an array is the parameter which will be replaced
+
+    const reviews = await db.query(
+      "SELECT * FROM reviews WHERE restaurant_id = $1",
+      [req.params.id]
+    );
+    console.log(restaurant);
+    console.log(reviews);
+    res.status(200).json({
+      status: "success",
+      data: {
+        restaurant: restaurant.rows[0],
+        reviews: reviews.rows,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/api/v1/usersDetails/insertData", async (req, res) => {
+  try {
+    const userQuery = await db.query(
+      "INSERT INTO users_details (full_name, genre, age, description) values ($1, $2, $3, $4) returning *",
+      [req.body.full_name, req.body.genre, req.body.age, req.body.description]
+    );
+
+    console.log("userQuery insert data ===> ", userQuery);
+    res.status(201).json({
+      status: userQuery.rows[0] ? "success" : "failed",
+      data: userQuery.rows[0],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is up and listening on port ${port}`);
