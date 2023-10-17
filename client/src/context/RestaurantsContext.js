@@ -6,6 +6,7 @@ export const RestaurantContextProvider = (props) => {
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [accountData, setAccountData] = useState({});
+  const [userData, setUserData] = useState();
 
   const addRestaurants = (restaurant) => {
     setRestaurants([...restaurants, restaurant]);
@@ -38,6 +39,8 @@ export const RestaurantContextProvider = (props) => {
         setAccountData,
         localStorageSave,
         localStorageGet,
+        userData,
+        setUserData,
       }}
     >
       {props.children}
